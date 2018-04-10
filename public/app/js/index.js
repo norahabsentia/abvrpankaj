@@ -78,11 +78,11 @@ VideoPlayer.prototype.init = function() {
     var self = this;
     var video = self.video;
     this.fetchData('data.json', function callback() {
-        $('.js-name').text(self.data.text1);
-        $('.js-month').text(self.data.text2);
+        $('.js-name').text("HELLO PANKAJ");
+        $('.js-month').text("@ Interest Rate of 8.3% p.a.");
 
         $('#animate3 .animate3__line2').append(
-            self.data.text3
+            "RS. 735897"
         );
         CHARLIE.setup(video);
         return;
