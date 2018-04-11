@@ -78,10 +78,10 @@ VideoPlayer.prototype.init = function() {
     var video = self.video;
     this.fetchData('data.json', function callback() {
         $('.js-name').text("HELLO PANKAJ");
-        $('.js-month').text("@ Interest Rate of 8.3% p.a.");
+        $('.js-month').text("@ Interest Rate of 9.2% p.a.");
 
         $('#animate3 .animate3__line2').append(
-            "₹9,00,000"
+            "₹8,50,000"
         );
         $('#animate4 .animate4__line2').text(
             "₹13,594 p.m in Year 1"
