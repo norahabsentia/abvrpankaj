@@ -1862,6 +1862,7 @@ if (typeof document !== "undefined" && !("classList" in document.createElement("
         startsAt: -1,
         duration: -1,
         endsAt: -1,
+        ios: !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform),
 
         start: function() {
             var me = this;
@@ -1890,6 +1891,13 @@ if (typeof document !== "undefined" && !("classList" in document.createElement("
             this.element.style.mozAnimationPlayState = "paused";
             this.element.style.oAnimationPlayState = "paused";
             this.element.style.animationPlayState = "paused";
+            if ( this.ios ) {
+                if (video || document.querySelector('video')) {
+                    var myCurrentTime = video.currentTime || document.querySelector('video').currentTime;
+                    setDelay(this, myCurrentTime);
+                }
+                this.element.classList.add('js-pause-animation');
+            }
         },
 
         resume: function() {
@@ -1897,6 +1905,9 @@ if (typeof document !== "undefined" && !("classList" in document.createElement("
             this.element.style.mozAnimationPlayState = "running";
             this.element.style.oAnimationPlayState = "running";
             this.element.style.animationPlayState = "running";
+            if ( this.ios ) {
+                this.element.classList.remove('js-pause-animation');
+            }
         }
 
     }

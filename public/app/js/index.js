@@ -3,11 +3,10 @@ window.HELP_IMPROVE_VIDEOJS = false;
 
 function VideoPlayer() {
     var videoElem = document.createElement('VIDEO');
-    videoElem.setAttribute('src', 'https://storage.googleapis.com/dynamic-video-hdfc/hdfc_pankaj.mp4');
+    videoElem.setAttribute('src', 'https://storage.googleapis.com/dynamic-video-hdfc/hdfc_team/hdfc_punkaj.mp4');
     videoElem.setAttribute('class', 'video-js vjs-fluid');
-    videoElem.setAttribute('controls', true);
-    videoElem.setAttribute('webkit-playsinline', true);
-    videoElem.setAttribute('playsinline', true);
+    videoElem.setAttribute('webkit-playsinline', '');
+    videoElem.setAttribute('playsinline', '');
     videoElem.setAttribute('id', 'js--video-player');
     videoElem.setAttribute("poster", "./app/img/fon.png");
     this.video = videoElem;
@@ -82,14 +81,28 @@ VideoPlayer.prototype.init = function() {
         $('.js-month').text("@ Interest Rate of 8.3% p.a.");
 
         $('#animate3 .animate3__line2').append(
-            "RS. 735897"
+            "₹9,00,000"
         );
+        $('#animate4 .animate4__line2').text(
+            "₹13,594 p.m in Year 1"
+        );
+        $('#animate4 .animate4__line3').text(
+            "₹15,730 p.m in Year 2"
+        );
+        $('#animate4 .animate4__line4').text(
+            "₹17,684 p.m in Year 3"
+        );
+        $('#animate6').text(
+            "Hey Pankaj, click here to avail your Pre-approved Auto Loan offer"
+        );
+        // retargeting video element
+        video = document.getElementsByClassName('vjs-tech')[0];
         CHARLIE.setup(video);
         return;
     });
 
 
-    videoPlayerWrapper.append(video);
+    $('#videoPlayerWrapper').append(video);
     self.myPlayer = videojs('js--video-player', {
         controls: true,
         autoplay: false,
@@ -231,11 +244,42 @@ VideoPlayer.prototype.handleFullScreen = function(event) {
 $(document).ready(function() {
 
     vPlayer.init();
-
-    var videoParent = video.parentElement;
-    videoParent.insertBefore(textAnimationBlock, video);
-
-    // divideWordIntoLetters ();
+    $('.vjs-fluid').append(textAnimationBlock);
     textAnimationBlock.classList.add('is-ready');
 
+
+    // detect iOS full screen
+    var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+    if (iOS) {
+        $('.vjs-fullscreen-control').hide();
+    }
+
+    var ua = navigator.userAgent.toLowerCase();
+    var isAndroid = ua.indexOf("android") > -1;
+    if (isAndroid) {
+        $('.vjs-fullscreen-control').hide();
+    }
+
+    // iOS special treatment
+    var vidEl = document.getElementsByClassName('vjs-tech')[0];
+    vidEl.addEventListener('pause', function() {
+
+        if (iOS) {
+            $('.charlie').each(function() {
+                if ($(this).hasClass('animated')) {
+                    $(this).css('-webkit-transform', $(this).css('-webkit-transform'))
+                }
+            })
+        }
+    })
+
+    //controlbar at bottom
+    function controlbarAtBottom() {
+        var height = $('.vjs-control-bar').height();
+        $('.vjs-control-bar').css('bottom', '-' + height + 'px');
+    }
+    controlbarAtBottom();
+    window.addEventListener('resize', controlbarAtBottom);
+    window.addEventListener('orientationchange', controlbarAtBottom);
 });
