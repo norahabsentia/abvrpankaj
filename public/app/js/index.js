@@ -76,7 +76,8 @@ VideoPlayer.prototype.fetchData = function(uri, callback) {
 VideoPlayer.prototype.init = function() {
     var self = this;
     var video = self.video;
-      $('.js-name').text("HELLO PANKAJ");
+    this.fetchData('data.json', function callback() {
+        $('.js-name').text("HELLO PANKAJ");
         $('.js-month').text("@ Interest Rate of 9.2% p.a.");
 
         $('#animate3 .animate3__line2').append(
@@ -97,8 +98,6 @@ VideoPlayer.prototype.init = function() {
         // retargeting video element
         video = document.getElementsByClassName('vjs-tech')[0];
         CHARLIE.setup(video);
-    this.fetchData('data.json', function callback() {
-      
         return;
     });
 
